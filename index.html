@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <title>Document</title>
+    <style>
+        .container{
+            
+            background-color: antiquewhite;
+            width: 600px;
+            box-shadow: 0 0 5px 3px ;
+            text-align: center;
+            margin: 0 auto;
+            border-radius: 4px;
+            padding: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+  
+        } .container > * {
+            margin: .5rem 0;
+        }
+        body{
+            background-color: gray;
+        }
+        h1{
+            text-align: center;
+        }
+        #gomb{
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            background-color: lightgreen;
+            padding: .2rem .4rem;
+            transition: all .35s ease-in-out;
+        }
+        #gomb:hover{
+            cursor: pointer;
+            background-color: rgb(12, 197, 12);
+        }
+        #sz1,#sz2{
+            text-align: center;
+        }
+        .ind{
+           width: 400px;
+           border-radius: .4rem;
+           background-color: #aaa; 
+           text-align: center;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+        }
+        .ind-in {
+            display: flex;
+            /*width: -webkit-fill-available;*/
+            width: 100%;
+           padding: .3rem;
+           border-radius: .4rem;
+           transition: all .3s ease;
+           background-color: rgb(12, 197, 12); 
+        } 
+        .shake{
+            animation: shake .3s infinite;
+        }
+        @keyframes shake {
+            0%{
+                transform: scale(1);
+            }
+            50%{
+                transform: scale(1.5);
+            }
+            100%{
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Jó vagy fejszámolásban?</h1>
+        <input type="button" id="gomb" value="Új feladat" onclick="szamol()">
+        <div>
+        <input type="text" value="1" id="sz1" disabled>
+        <i class='fa-solid fa-plus'></i>
+        <input type="text" value="1" id="sz2" disabled>
+        <i class='fa-solid fa-equals'></i>
+        <input type="text" name="" id="eredmeny" onkeyup="eredmeny()">
+        </div>
+        <div id="kep"><i   class="fa-solid fa-question"></i></div>
+
+        <span class="ind">
+            <span class="ind-in" id="indicator"></span>
+        </span>
+    </div>
+
+    <script>
+        function szamol(){
+           document.querySelector('#sz1').value=Math.floor(Math.random()*(100-1)+1)
+           document.querySelector('#sz2').value=Math.floor(Math.random()*(100-1)+1)
+           document.querySelector('#eredmeny').disabled=false
+           document.querySelector('#eredmeny').value=""
+
+           let wdth = 100
+        setInterval(() => { wdth = wdth - 1; 
+            document.getElementById('indicator').style.width= wdth+"%"
+            if(wdth<=0){
+                document.querySelector('#eredmeny').disabled=true  
+                document.querySelector("#kep").innerHTML="<i class='shake fa-solid fa-clock'></i>"
+            }
+
+        }, 50);
+        }
+
+        
+        function eredmeny(){
+            let eredmeny=Number(document.getElementById('eredmeny').value)
+            console.log(eredmeny)
+            let szam1=Number(document.querySelector('#sz1').value)
+            let szam2=Number(document.querySelector('#sz2').value)
+            if(eredmeny==(szam1+szam2)){
+                document.querySelector("#kep").innerHTML="<i class='fa-solid fa-thumbs-up'></i>"
+                document.querySelector("#eredmeny").disabled=true
+                
+            }
+            else{
+                document.querySelector("#kep").innerHTML="<i class='fa-solid fa-x'></i>"
+                
+            }
+            
+        }
+       
+        
+    </script>
+</body>
+</html>
